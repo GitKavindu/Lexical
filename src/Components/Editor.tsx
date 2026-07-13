@@ -1,4 +1,4 @@
-import {$getRoot, $getSelection, EditorState} from 'lexical';
+import {$createTextNode, $getRoot, $getSelection, EditorState} from 'lexical';
 import {useEffect} from 'react';
 
 import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin';
@@ -7,12 +7,20 @@ import {RichTextPlugin} from '@lexical/react/LexicalRichTextPlugin';
 import {ContentEditable} from '@lexical/react/LexicalContentEditable';
 import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin';
 import {LexicalErrorBoundary} from '@lexical/react/LexicalErrorBoundary';
-import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext'
+import {LexicalComposerContext, useLexicalComposerContext} from '@lexical/react/LexicalComposerContext'
+import {$createHeadingNode, HeadingNode} from '@lexical/rich-text'
 import "./Editor.css"
 
 const theme = {
   // Theme styling goes here
   //...
+  heading:{
+    h1:'glyf-editor-h1'
+  },
+  text: {
+    bold: 'glyf-editor-bold',
+    italic: 'glyf-editor-italics'
+  }
 }
 
 // Catch any errors that occur during Lexical updates and log them
@@ -27,10 +35,14 @@ function Editor() {
     namespace: 'MyEditor',
     theme,
     onError,
+    nodes : [
+      HeadingNode
+    ]
   };
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
+      <MyHeadingPludin/>
       <RichTextPlugin
         contentEditable={
           <ContentEditable 
@@ -42,22 +54,21 @@ function Editor() {
         ErrorBoundary={LexicalErrorBoundary}
       />
       <HistoryPlugin />
-      <MyOnChangePlugin onChange={(editorState => {console.log(editorState)})}/>
     </LexicalComposer>
   );
 }
 
-function MyOnChangePlugin(props: { onChange: (editorState:EditorState) => void }):null{
-    const [editor] = useLexicalComposerContext();
-    const {onChange} = props
-    useEffect(()=>{
-        editor.registerUpdateListener(({editorState})=>{
-            onChange(editorState);
-        })
-    },[onChange,editor])
-
-    return null;
+function MyHeadingPludin():JSX.Element{
+  const [editor]=useLexicalComposerContext();
+  const onclick = (e:React.MouseEvent):void => {
+    editor.update(()=>{
+      const root = $getRoot();
+      root.append($createHeadingNode('h1').append($createTextNode('Hello World')));
+    });
+  }
+  return <button onClick={onclick}>Heading</button>
 }
+
 export default Editor
 
 
