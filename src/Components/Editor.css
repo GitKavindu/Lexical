@@ -1,0 +1,14 @@
+.content-editable{
+    height: 300px;
+    width: 1000px;
+    padding: 2px 8px;
+    border: 1px solid black;
+}
+
+.placeholder{
+    position: absolute;
+    top: 10px;
+    left: 0px;
+    color: rgb(147, 197, 243);
+    padding: 8px;
+}
