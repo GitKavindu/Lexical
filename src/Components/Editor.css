@@ -24,3 +24,15 @@
 .glyf-editor-h1{
     background-color: blanchedalmond;
 }
+
+.glyf-editor-h2{
+    background-color: rgb(221, 145, 30);
+}
+
+.glyf-editor-h3{
+    background-color: rgb(145, 90, 7);
+}
+
+.toolBarWrapper{
+    display:flex
+}
