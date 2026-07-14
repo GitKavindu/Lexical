@@ -3,4 +3,4 @@ Selection package
 npm i @lexical/selection@0.37.0
 
 
-npm i --dev @lexical/list@0.37.0
+npm i --save-dev @lexical/list@0.37.0
