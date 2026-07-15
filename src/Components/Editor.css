@@ -36,3 +36,8 @@
 .toolBarWrapper{
     display:flex
 }
+
+.glyf-editor-banner{
+    background-color: blueviolet;
+    margin: 8px ;
+}
