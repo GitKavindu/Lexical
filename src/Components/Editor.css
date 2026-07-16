@@ -43,20 +43,23 @@
 }
 
 .editor-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 16px 0;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    font-size: 0.9rem;
 }
 
-.editor-table-cell {
-  border: 1px solid #d1d5db;
-  padding: 10px;
-  min-width: 120px;
-  vertical-align: top;
+.editor-table-cell  {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
 }
 
 .editor-table-header {
-  background: #f3f4f6;
-  font-weight: bold;
-  text-align: left;
+    background-color: #83004B;
+    color: white;
+}
+
+ul > li{
+    list-style-image: url(../../public/x-diamond-fill.svg);
 }

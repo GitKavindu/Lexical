@@ -74,7 +74,10 @@ function InsertTableButton():JSX.Element {
             {
                 rows: "3",
                 columns: "2",
-                includeHeaders: true,
+                includeHeaders: {
+                  rows: true,
+                  columns: false,
+                },
             }
         );
     };
