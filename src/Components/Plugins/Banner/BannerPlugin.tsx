@@ -70,7 +70,7 @@ export function BannerPlugin(): null{
             $setBlocksType(selection,$createBannerNode)  
         }
         return true
-    },COMMAND_PRIORITY_HIGH)  // COMMAND_PRIORITY_LOW values are used to overide commands
+    },COMMAND_PRIORITY_LOW)  // COMMAND_PRIORITY_LOW values are used to overide commands
 
     return null
 }

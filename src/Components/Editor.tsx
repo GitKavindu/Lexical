@@ -14,7 +14,7 @@ import "./Editor.css"
 import { BannerNode, BannerPlugin } from './Plugins/Banner/BannerPlugin';
 import {TableNode,TableCellNode,TableRowNode} from "@lexical/table";
 import {TablePlugin} from "@lexical/react/LexicalTablePlugin";
-import { CustomListNode } from './Plugins/Banner/CustomListPlugin';
+import { CustomListPlugin } from './Plugins/Banner/CustomListPlugin';
 
 const theme = {
   // Theme styling goes here
@@ -47,7 +47,7 @@ function Editor() {
     theme,
     onError,
     nodes : [
-      HeadingNode,ListNode, ListItemNode,BannerNode,TableNode,TableRowNode,TableCellNode,CustomListNode
+      HeadingNode,ListNode, ListItemNode,BannerNode,TableNode,TableRowNode,TableCellNode
     ]
   };
 
@@ -55,11 +55,12 @@ function Editor() {
     <LexicalComposer initialConfig={initialConfig}>
       <ToolBarPlugin/>
       <BannerPlugin/>
+      <CustomListPlugin />
       <ListPlugin/>
       <RichTextPlugin
         contentEditable={
           <ContentEditable 
-            className='content-editable'
+            className='content-editable custom-svg-list-editor'
             aria-placeholder={'Enter some text...'}
             placeholder={<div className='placeholder'>Enter some text...</div>}
           />

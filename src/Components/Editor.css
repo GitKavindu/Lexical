@@ -60,6 +60,29 @@
     color: white;
 }
 
-ul > li{
-    list-style-image: url(../../public/x-diamond-fill.svg);
+.custom-svg-list-editor ul {
+    list-style: none;
+    padding-left: 1.5rem;
+    margin: 0.5rem 0;
+}
+
+.custom-svg-list-editor li {
+    position: relative;
+    margin: 0.35rem 0;
+}
+
+.custom-svg-list-editor li::before {
+    content: "";
+    display: inline-block;
+    width: 0.95rem;
+    height: 0.95rem;
+    margin-right: 0.6rem;
+    background-image: url("/x-diamond-fill-red.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+
+.custom-svg-list-editor ul ul li::before {
+    background-image: url("/x-diamond-fill.svg");
 }

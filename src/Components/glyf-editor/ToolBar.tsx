@@ -6,13 +6,12 @@ import { $insertList, $isListNode, $removeList, INSERT_ORDERED_LIST_COMMAND,INSE
 import { INSERT_BANNER_COMMAND } from '../Plugins/Banner/BannerPlugin';
 import {INSERT_TABLE_COMMAND} from "@lexical/table";
 import { useEffect } from 'react';
-import { INSERT_CUSTOMLIST_COMMAND } from '../Plugins/Banner/CustomListPlugin';
 
 export function ToolBarPlugin () :JSX.Element{
   const [editor]=useLexicalComposerContext();
   return <div className='toolBarWrapper'>
     <MyHeadingPludin/>
-    <CustomListToolbarPlugin />
+    <CustomListToolbarPlugin/>
     <BannerToolbarplugin/>
     <InsertTableButton/>
   </div>
@@ -43,12 +42,17 @@ function MyHeadingPludin():JSX.Element{
 function CustomListToolbarPlugin() {
   const [editor] = useLexicalComposerContext();
   
-  const onclick = (e: React.MouseEvent): void => {
-    console.log('dispatched')
-    editor.dispatchCommand(INSERT_CUSTOMLIST_COMMAND, undefined);
+  const handleMouseDown = (e: React.MouseEvent): void => {   
+    // Prevents text selection focus from getting dropped when clicking the button
+    e.preventDefault();
+    editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
   };
   
-  return <button type="button" onClick={onclick}>Custom List</button>;
+  return (
+    <button type='button' onMouseDown={handleMouseDown}>
+      Custom List
+    </button>
+  );
 }
 
 function BannerToolbarplugin(){
