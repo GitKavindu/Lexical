@@ -14,6 +14,7 @@ import "./Editor.css"
 import { BannerNode, BannerPlugin } from './Plugins/Banner/BannerPlugin';
 import {TableNode,TableCellNode,TableRowNode} from "@lexical/table";
 import {TablePlugin} from "@lexical/react/LexicalTablePlugin";
+import { CustomListNode } from './Plugins/Banner/CustomListPlugin';
 
 const theme = {
   // Theme styling goes here
@@ -46,7 +47,7 @@ function Editor() {
     theme,
     onError,
     nodes : [
-      HeadingNode,ListNode, ListItemNode,BannerNode,TableNode,TableRowNode,TableCellNode,
+      HeadingNode,ListNode, ListItemNode,BannerNode,TableNode,TableRowNode,TableCellNode,CustomListNode
     ]
   };
 

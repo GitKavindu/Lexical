@@ -1,16 +1,18 @@
-import {$createTextNode, $getRoot, $getSelection, $isRangeSelection, EditorState} from 'lexical';
+import {$createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, EditorState} from 'lexical';
 import {$createHeadingNode} from '@lexical/rich-text'
 import {$setBlocksType} from '@lexical/selection'
 import {LexicalComposerContext, useLexicalComposerContext} from '@lexical/react/LexicalComposerContext'
-import { INSERT_ORDERED_LIST_COMMAND,INSERT_UNORDERED_LIST_COMMAND } from "@lexical/list";
+import { $insertList, $isListNode, $removeList, INSERT_ORDERED_LIST_COMMAND,INSERT_UNORDERED_LIST_COMMAND, REMOVE_LIST_COMMAND } from "@lexical/list";
 import { INSERT_BANNER_COMMAND } from '../Plugins/Banner/BannerPlugin';
 import {INSERT_TABLE_COMMAND} from "@lexical/table";
+import { useEffect } from 'react';
+import { INSERT_CUSTOMLIST_COMMAND } from '../Plugins/Banner/CustomListPlugin';
 
 export function ToolBarPlugin () :JSX.Element{
   const [editor]=useLexicalComposerContext();
   return <div className='toolBarWrapper'>
     <MyHeadingPludin/>
-    <ListToolBarPlugin/>
+    <CustomListToolbarPlugin />
     <BannerToolbarplugin/>
     <InsertTableButton/>
   </div>
@@ -38,23 +40,15 @@ function MyHeadingPludin():JSX.Element{
   
 }
 
-function ListToolBarPlugin():JSX.Element{
-  const [editor]=useLexicalComposerContext();
-  const onclick = (tag : 'ol' |  'ul') :void => {
-    if(tag === 'ol'){
-      editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND,undefined)
-      return
-    }
-    editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND,undefined)
-  }
-  return <div>
-    {['ol','ul'].map((tag) => (
-      <button onClick={() => onclick(tag)} key={tag}>
-        {tag.toUpperCase()}
-      </button>
-    ))}
-  </div>
+function CustomListToolbarPlugin() {
+  const [editor] = useLexicalComposerContext();
   
+  const onclick = (e: React.MouseEvent): void => {
+    console.log('dispatched')
+    editor.dispatchCommand(INSERT_CUSTOMLIST_COMMAND, undefined);
+  };
+  
+  return <button type="button" onClick={onclick}>Custom List</button>;
 }
 
 function BannerToolbarplugin(){
