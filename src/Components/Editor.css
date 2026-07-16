@@ -41,3 +41,22 @@
     background-color: blueviolet;
     margin: 8px ;
 }
+
+.editor-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+}
+
+.editor-table-cell {
+  border: 1px solid #d1d5db;
+  padding: 10px;
+  min-width: 120px;
+  vertical-align: top;
+}
+
+.editor-table-header {
+  background: #f3f4f6;
+  font-weight: bold;
+  text-align: left;
+}

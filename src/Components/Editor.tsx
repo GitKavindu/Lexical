@@ -12,6 +12,8 @@ import { ToolBarPlugin } from './glyf-editor/ToolBar';
 
 import "./Editor.css"
 import { BannerNode, BannerPlugin } from './Plugins/Banner/BannerPlugin';
+import {TableNode,TableCellNode,TableRowNode} from "@lexical/table";
+import {TablePlugin} from "@lexical/react/LexicalTablePlugin";
 
 const theme = {
   // Theme styling goes here
@@ -25,7 +27,10 @@ const theme = {
     bold: 'glyf-editor-bold',
     italic: 'glyf-editor-italics'
   },
-  banner:'glyf-editor-banner'
+  banner:'glyf-editor-banner',
+  table: "editor-table",
+  tableCell: "editor-table-cell",
+  tableCellHeader: "editor-table-header",
 }
 
 // Catch any errors that occur during Lexical updates and log them
@@ -41,7 +46,7 @@ function Editor() {
     theme,
     onError,
     nodes : [
-      HeadingNode,ListNode, ListItemNode,BannerNode
+      HeadingNode,ListNode, ListItemNode,BannerNode,TableNode,TableRowNode,TableCellNode,
     ]
   };
 
@@ -59,6 +64,11 @@ function Editor() {
           />
         }
         ErrorBoundary={LexicalErrorBoundary}
+      />
+      <TablePlugin
+          hasCellMerge={true}
+          hasCellBackgroundColor={true}
+          hasTabHandler={true}
       />
       <HistoryPlugin />
     </LexicalComposer>

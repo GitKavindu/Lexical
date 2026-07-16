@@ -4,12 +4,15 @@ import {$setBlocksType} from '@lexical/selection'
 import {LexicalComposerContext, useLexicalComposerContext} from '@lexical/react/LexicalComposerContext'
 import { INSERT_ORDERED_LIST_COMMAND,INSERT_UNORDERED_LIST_COMMAND } from "@lexical/list";
 import { INSERT_BANNER_COMMAND } from '../Plugins/Banner/BannerPlugin';
+import {INSERT_TABLE_COMMAND} from "@lexical/table";
+
 export function ToolBarPlugin () :JSX.Element{
   const [editor]=useLexicalComposerContext();
   return <div className='toolBarWrapper'>
     <MyHeadingPludin/>
     <ListToolBarPlugin/>
     <BannerToolbarplugin/>
+    <InsertTableButton/>
   </div>
 }
 
@@ -60,4 +63,25 @@ function BannerToolbarplugin(){
         editor.dispatchCommand(INSERT_BANNER_COMMAND,undefined)
     }
     return <button type='button' onClick={onclick}>Banner</button>
+}
+
+function InsertTableButton():JSX.Element {
+    const [editor] = useLexicalComposerContext();
+
+    const insertTable = () => {
+        editor.dispatchCommand(
+            INSERT_TABLE_COMMAND,
+            {
+                rows: "3",
+                columns: "2",
+                includeHeaders: true,
+            }
+        );
+    };
+
+    return (
+        <button onClick={insertTable}>
+            Insert Table
+        </button>
+    );
 }
