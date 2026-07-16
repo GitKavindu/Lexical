@@ -77,12 +77,15 @@
     width: 0.95rem;
     height: 0.95rem;
     margin-right: 0.6rem;
-    background-image: url("/x-diamond-fill-red.svg");
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
 }
 
-.custom-svg-list-editor ul ul li::before {
+.custom-svg-list-red li::before {
+    background-image: url("/x-diamond-fill-red.svg");
+}
+
+.custom-svg-list-default li::before {
     background-image: url("/x-diamond-fill.svg");
 }

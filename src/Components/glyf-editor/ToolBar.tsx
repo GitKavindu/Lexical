@@ -1,88 +1,87 @@
-import {$createTextNode, $getRoot, $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, EditorState} from 'lexical';
-import {$createHeadingNode} from '@lexical/rich-text'
-import {$setBlocksType} from '@lexical/selection'
-import {LexicalComposerContext, useLexicalComposerContext} from '@lexical/react/LexicalComposerContext'
-import { $insertList, $isListNode, $removeList, INSERT_ORDERED_LIST_COMMAND,INSERT_UNORDERED_LIST_COMMAND, REMOVE_LIST_COMMAND } from "@lexical/list";
+import { $getSelection, $isRangeSelection } from 'lexical';
+import { $createHeadingNode } from '@lexical/rich-text';
+import { $setBlocksType } from '@lexical/selection';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { INSERT_BANNER_COMMAND } from '../Plugins/Banner/BannerPlugin';
-import {INSERT_TABLE_COMMAND} from "@lexical/table";
-import { useEffect } from 'react';
+import { INSERT_TABLE_COMMAND } from '@lexical/table';
+import { INSERT_DEFAULT_BULLET_LIST_COMMAND, INSERT_RED_BULLET_LIST_COMMAND } from '../Plugins/Banner/CustomListPlugin';
 
-export function ToolBarPlugin () :JSX.Element{
-  const [editor]=useLexicalComposerContext();
-  return <div className='toolBarWrapper'>
-    <MyHeadingPludin/>
-    <CustomListToolbarPlugin/>
-    <BannerToolbarplugin/>
-    <InsertTableButton/>
-  </div>
-}
-
-function MyHeadingPludin():JSX.Element{
-  const [editor]=useLexicalComposerContext();
-  const onclick = (tag : 'h1' |  'h2' | 'h3'):void => {
-    editor.update(()=>{
-      const selection =$getSelection();
-      //this is only range selection. there are other types which is known as
-      //Grid selection and Node Selection
-      if($isRangeSelection(selection)){
-        $setBlocksType(selection,()=> $createHeadingNode(tag))
-      }
-    });
-  }
-  return <div>
-    {['h1', 'h2', 'h3'].map((tag) => (
-      <button onClick={() => onclick(tag)} key={tag}>
-        {tag.toUpperCase()}
-      </button>
-    ))}
-  </div>
-  
-}
-
-function CustomListToolbarPlugin() {
-  const [editor] = useLexicalComposerContext();
-  
-  const handleMouseDown = (e: React.MouseEvent): void => {   
-    // Prevents text selection focus from getting dropped when clicking the button
-    e.preventDefault();
-    editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
-  };
-  
+export function ToolBarPlugin(): JSX.Element {
   return (
-    <button type='button' onMouseDown={handleMouseDown}>
-      Custom List
-    </button>
+    <div className='toolBarWrapper'>
+      <MyHeadingPlugin />
+      <CustomListToolbarPlugin />
+      <BannerToolbarplugin />
+      <InsertTableButton />
+    </div>
   );
 }
 
-function BannerToolbarplugin(){
-    const [editor]=useLexicalComposerContext();
-    const onclick = (e:React.MouseEvent) :void => {   
-        editor.dispatchCommand(INSERT_BANNER_COMMAND,undefined)
-    }
-    return <button type='button' onClick={onclick}>Banner</button>
+function MyHeadingPlugin(): JSX.Element {
+  const [editor] = useLexicalComposerContext();
+
+  const onclick = (tag: 'h1' | 'h2' | 'h3'): void => {
+    editor.update(() => {
+      const selection = $getSelection();
+      if ($isRangeSelection(selection)) {
+        $setBlocksType(selection, () => $createHeadingNode(tag));
+      }
+    });
+  };
+
+  return (
+    <div>
+      <button type='button' onClick={() => onclick('h1')}>H1</button>
+      <button type='button' onClick={() => onclick('h2')}>H2</button>
+      <button type='button' onClick={() => onclick('h3')}>H3</button>
+    </div>
+  );
 }
 
-function InsertTableButton():JSX.Element {
-    const [editor] = useLexicalComposerContext();
+function CustomListToolbarPlugin(): JSX.Element {
+  const [editor] = useLexicalComposerContext();
 
-    const insertTable = () => {
-        editor.dispatchCommand(
-            INSERT_TABLE_COMMAND,
-            {
-                rows: "3",
-                columns: "2",
-                includeHeaders: {
-                  rows: true,
-                  columns: false,
-                },
-            }
-        );
-    };
+  const handleInsert = (command: any) => (event: React.MouseEvent) => {
+    event.preventDefault();
+    editor.dispatchCommand(command, undefined);
+  };
 
-    return (
-        <button onClick={insertTable}>
-            Insert Table
-        </button>
-    );
+  return (
+    <div>
+      <button type='button' onMouseDown={handleInsert(INSERT_RED_BULLET_LIST_COMMAND)}>
+        Red Bullet
+      </button>
+      <button type='button' onMouseDown={handleInsert(INSERT_DEFAULT_BULLET_LIST_COMMAND)}>
+        Default Bullet
+      </button>
+    </div>
+  );
+}
+
+function BannerToolbarplugin(): JSX.Element {
+  const [editor] = useLexicalComposerContext();
+
+  const onclick = (event: React.MouseEvent): void => {
+    event.preventDefault();
+    editor.dispatchCommand(INSERT_BANNER_COMMAND, undefined);
+  };
+
+  return <button type='button' onClick={onclick}>Banner</button>;
+}
+
+function InsertTableButton(): JSX.Element {
+  const [editor] = useLexicalComposerContext();
+
+  const insertTable = () => {
+    editor.dispatchCommand(INSERT_TABLE_COMMAND, {
+      rows: '3',
+      columns: '2',
+      includeHeaders: {
+        rows: true,
+        columns: false,
+      },
+    });
+  };
+
+  return <button onClick={insertTable}>Insert Table</button>;
 }

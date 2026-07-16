@@ -47,7 +47,7 @@ function Editor() {
     theme,
     onError,
     nodes : [
-      HeadingNode,ListNode, ListItemNode,BannerNode,TableNode,TableRowNode,TableCellNode
+      HeadingNode, ListNode, ListItemNode, BannerNode, TableNode, TableRowNode, TableCellNode
     ]
   };
 
