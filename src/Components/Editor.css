@@ -1,5 +1,5 @@
 .content-editable{
-    height: 300px;
+    height: 800px;
     width: 1000px;
     padding: 2px 8px;
     border: 1px solid black;
@@ -88,4 +88,20 @@
 
 .custom-svg-list-default li::before {
     background-image: url("/x-diamond-fill.svg");
+}
+
+.content-editable a {
+    color: black;
+}
+
+.content-editable a:visited {
+    color: black;
+}
+
+.content-editable a:hover {
+    color: black;
+}
+
+.content-editable a:active {
+    color: black;
 }

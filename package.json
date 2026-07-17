@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@lexical/link": "^0.37.0",
     "@lexical/react": "^0.37.0",
     "@lexical/selection": "^0.37.0",
     "@lexical/table": "^0.37.0",

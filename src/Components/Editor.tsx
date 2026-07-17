@@ -15,6 +15,8 @@ import { BannerNode, BannerPlugin } from './Plugins/Banner/BannerPlugin';
 import {TableNode,TableCellNode,TableRowNode} from "@lexical/table";
 import {TablePlugin} from "@lexical/react/LexicalTablePlugin";
 import { CustomListPlugin } from './Plugins/Banner/CustomListPlugin';
+import { AutoLinkNode, LinkNode } from '@lexical/link';
+import ImagesPlugin, { ImageNode } from './Plugins/Banner/ImageNode';
 
 const theme = {
   // Theme styling goes here
@@ -47,7 +49,7 @@ function Editor() {
     theme,
     onError,
     nodes : [
-      HeadingNode, ListNode, ListItemNode, BannerNode, TableNode, TableRowNode, TableCellNode
+      HeadingNode, ListNode, ListItemNode, BannerNode, TableNode, TableRowNode, TableCellNode,LinkNode,AutoLinkNode, ImageNode
     ]
   };
 
@@ -73,6 +75,7 @@ function Editor() {
           hasTabHandler={true}
       />
       <HistoryPlugin />
+      <ImagesPlugin />
     </LexicalComposer>
   );
 }
